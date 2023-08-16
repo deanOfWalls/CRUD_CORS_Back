@@ -1,24 +1,45 @@
 package com.deanofwalls.CRUD_DEMO.controller;
 
-
 import com.deanofwalls.CRUD_DEMO.model.PersonModel;
 import com.deanofwalls.CRUD_DEMO.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.List;
-@CrossOrigin(origins = "https://deanofwalls.github.io")
+
 @Controller
 public class PersonController {
+
+    @Bean
+    public WebMvcConfigurer corsConfigurer() {
+        return new WebMvcConfigurer() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/**")
+                        .allowedOrigins("https://deanofwalls.github.io")
+                        .allowedMethods("GET", "POST", "PUT", "DELETE", "HEAD", "OPTIONS")
+                        .allowedHeaders("*")
+                        .allowCredentials(true);
+            }
+        };
+    }
+
     private PersonService service;
 
     @Autowired
     public PersonController(PersonService service) {
         this.service = service;
     }
+
+    // ... rest of your controller methods
+
+
 
     @PostMapping(value = "/create")
     public ResponseEntity<PersonModel> create(@RequestBody PersonModel person) {
