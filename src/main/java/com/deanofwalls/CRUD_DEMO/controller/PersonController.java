@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-@CrossOrigin(origins = "https://deanofwalls.github.io/CRUD_CORS_Front/")
+@CrossOrigin(origins = "https://deanofwalls.github.io")
 @Controller
 public class PersonController {
     private PersonService service;
