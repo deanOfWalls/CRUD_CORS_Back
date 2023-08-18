@@ -2,6 +2,7 @@ package com.deanofwalls.CRUD_DEMO.controller;
 
 import com.deanofwalls.CRUD_DEMO.model.PersonModel;
 import com.deanofwalls.CRUD_DEMO.service.PersonService;
+import com.deanofwalls.CRUD_DEMO.service.ServerStatsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
@@ -11,7 +12,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class PersonController {
@@ -37,8 +41,10 @@ public class PersonController {
         this.service = service;
     }
 
-    // ... rest of your controller methods
+    @Autowired
+    private ServerStatsService statsService;
 
+    // ... rest of your controller methods
 
 
     @PostMapping(value = "/create")
@@ -69,8 +75,17 @@ public class PersonController {
     }
 
     @GetMapping("/health-check")
-    public ResponseEntity<String>healthCheck(){
+    public ResponseEntity<String> healthCheck() {
         return ResponseEntity.ok("UP");
+    }
+
+    @GetMapping("/stats")
+    public ResponseEntity<Map<String, String>> getStats() throws IOException, InterruptedException {
+        Map<String, String> stats = new HashMap<>();
+        stats.put("cpuCount", String.valueOf(statsService.getCpuCount()));
+        stats.put("cpuSpeed", statsService.getCpuSpeed() + " MHz");
+        stats.put("ram", statsService.getRam());
+        return ResponseEntity.ok(stats);
     }
 
 
