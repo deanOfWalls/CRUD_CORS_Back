@@ -17,7 +17,7 @@ public class ServerStatsService {
 
     public String getCpuSpeed() throws IOException, InterruptedException {
         ProcessBuilder processBuilder = new ProcessBuilder();
-        processBuilder.command("bash", "-c", "grep 'cpu MHz' /proc/cpuinfo | uniq");
+        processBuilder.command("grep", "cpu MHz", "/proc/cpuinfo");
 
         Process process = processBuilder.start();
         String output;
