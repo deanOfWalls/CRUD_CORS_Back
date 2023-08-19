@@ -80,13 +80,15 @@ public class PersonController {
     }
 
     @GetMapping("/stats")
-    public ResponseEntity<Map<String, String>> getStats() throws IOException, InterruptedException {
+    public ResponseEntity<Map<String, String>> getStats() {
         Map<String, String> stats = new HashMap<>();
         stats.put("cpuCount", String.valueOf(statsService.getCpuCount()));
-//        stats.put("cpuSpeed", statsService.getCpuSpeed() + " MHz");
-        stats.put("ram", statsService.getRam());
+        // Omitting cpuSpeed for now
+        // stats.put("cpuSpeed", statsService.getCpuSpeed() + " MHz");
+        stats.put("jvmMemory", statsService.getJvmMemory());
         return ResponseEntity.ok(stats);
     }
+
 
 
 }

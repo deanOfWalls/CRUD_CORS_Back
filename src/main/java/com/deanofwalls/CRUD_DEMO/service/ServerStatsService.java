@@ -37,4 +37,24 @@ public class ServerStatsService {
         process.waitFor();
         return output;
     }
+
+    public String getJvmMemory() {
+        Runtime runtime = Runtime.getRuntime();
+        long totalMemory = runtime.totalMemory(); // total memory allocated to JVM
+        long freeMemory = runtime.freeMemory(); // free memory within the JVM
+        long usedMemory = totalMemory - freeMemory; // used memory
+        return "Used: " + formatSize(usedMemory) + " / Total Allocated: " + formatSize(totalMemory);
+    }
+
+    private String formatSize(long size) {
+        String[] units = new String[]{"B", "KB", "MB", "GB", "TB"};
+        int unit = 0;
+        while (size >= 1024 && unit < units.length - 1) {
+            size /= 1024;
+            unit++;
+        }
+        return size + " " + units[unit];
+    }
+
+
 }
