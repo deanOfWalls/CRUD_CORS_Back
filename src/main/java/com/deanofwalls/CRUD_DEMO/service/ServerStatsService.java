@@ -1,9 +1,12 @@
 package com.deanofwalls.CRUD_DEMO.service;
 
+import com.sun.management.OperatingSystemMXBean;
 import org.springframework.stereotype.Service;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.management.ManagementFactory;
 
 @Service
 public class ServerStatsService {
@@ -55,6 +58,5 @@ public class ServerStatsService {
         }
         return size + " " + units[unit];
     }
-
 
 }
