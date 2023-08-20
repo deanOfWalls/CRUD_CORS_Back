@@ -1,3 +1,6 @@
+#Explicitly Expose desired port
+EXPOSE 8080
+
 # Build Stage
 FROM openjdk:8-jdk-alpine as build
 WORKDIR /workspace/app
