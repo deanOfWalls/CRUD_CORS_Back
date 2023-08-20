@@ -1,6 +1,3 @@
-#Explicitly Expose desired port
-EXPOSE 8080
-
 # Build Stage
 FROM openjdk:8-jdk-alpine as build
 WORKDIR /workspace/app
@@ -14,6 +11,9 @@ RUN mkdir -p target/dependency && (cd target/dependency; jar -xf ../*.jar)
 
 # Final Stage
 FROM openjdk:8-jdk-alpine
+
+# Explicitly Expose desired port
+EXPOSE 8080
 
 # Set up volumes and arguments
 VOLUME /tmp
