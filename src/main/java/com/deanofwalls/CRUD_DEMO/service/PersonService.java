@@ -19,6 +19,10 @@ public class PersonService {
     }
 
     public PersonModel create(PersonModel person) {
+        // Check if the ID already exists
+        if (person.getId() != null && repository.existsById(person.getId())) {
+            throw new RuntimeException("Person with ID " + person.getId() + " already exists.");
+        }
         return repository.save(person);
     }
 
